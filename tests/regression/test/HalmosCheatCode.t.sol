@@ -139,6 +139,10 @@ contract HalmosCheatCodeTest is SymTest, Test {
         svm.enableSymbolicStorage(address(0xdeadbeef)); // HalmosException
     }
 
+    function check_unsupported_opcodes_fail() public {
+        vm.expectRevert("HalmosCheatCode: unsupported opcode");
+    }
+
     /// @custom:halmos --array-lengths name=1
     function check_extract_string_argument_fail(string memory name) public {
         uint x = svm.createUint256(name);
@@ -146,7 +150,6 @@ contract HalmosCheatCodeTest is SymTest, Test {
         assert(true);
     }
 }
-
 /// @custom:halmos --default-bytes-lengths 0,65
 contract HalmosCreateCalldataTest is SymTest, Test {
     function check_createCalldata_Beep_1_excluding_pure() public {
